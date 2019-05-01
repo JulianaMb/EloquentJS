@@ -38,27 +38,22 @@ function withBoxUnlocked(body) {
   let startedLocked = box.locked;
   try{
     if (startedLocked) box.unlock();
-    body();
-  } catch (e) {
-    return e;
+    return body();
   }
   finally {
    if (startedLocked) {
-     console.log('locking');
      box.lock(); 
    }
   }
 }
 
 withBoxUnlocked(function() {
-  console.log('first call. box locked?', box.locked);
   box.content.push("gold piece");
 });
 
 try {
   box.unlock();
   withBoxUnlocked(function() {
-    console.log('second call. box locked?', box.locked);
     throw new Error("Pirates on the horizon! Abort!");
   });
 } catch (e) {
