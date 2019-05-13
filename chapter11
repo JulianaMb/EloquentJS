@@ -1,0 +1,25 @@
+async function locateScalpel(nest) {
+  let oldN = nest.name;
+  for (; ;){
+    let newN = await anyStorage(nest, oldN, "scalpel");
+    if (newN === oldN) return newN;
+    oldN = newN;
+  }
+}
+
+function locateScalpel2(nest) {
+  function locate(oldNest) {
+  	return anyStorage(nest, oldNest, "scalpel")
+    .then(res => {
+    	if (oldNest === res) {
+      		return res;
+    	} else {
+      		return locate(res);
+    	}
+     });
+  }
+  return locate(nest.name);
+}
+
+locateScalpel(bigOak).then(console.log);
+locateScalpel2(bigOak).then(console.log);
