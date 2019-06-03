@@ -38,3 +38,34 @@
   mainNode.appendChild(table); 
   
 </script>
+
+
+<h1>Heading with a <span>span</span> element.</h1>
+<p>A paragraph with <span>one</span>, <span>two</span>
+  spans.</p>
+
+<script>
+  function byTagName(node, tagName) {
+    let result = [];
+    function search(node){
+      let elementNodes = Array.from(node.childNodes).filter(n => Node.ELEMENT_NODE === n.nodeType);
+      
+      elementNodes.forEach(n => {
+        if (n.nodeName === tagName.toUpperCase()) {
+          result.push(n);
+        }
+        search(n);
+      });
+    }
+    search(node);
+	return result;
+  }
+
+  console.log(byTagName(document.body, "h1").length);
+  // → 1
+  console.log(byTagName(document.body, "span").length);
+  // → 3
+  let para = document.querySelector("p");
+  console.log(byTagName(para, "span").length);
+  // → 2
+</script>
