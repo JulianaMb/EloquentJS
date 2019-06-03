@@ -29,7 +29,7 @@
     for (let p of Object.keys(m)) {
       	const td = (document.createElement('td'));
       	const column = document.createTextNode(m[p]);
-      	if (typeof column === "number") td.style.textAlign = "right";
+      	if (!isNaN(column.nodeValue)) td.style.textAlign = "right";
     	td.appendChild(document.createTextNode(m[p]));
       	tr.appendChild(td);
     }
