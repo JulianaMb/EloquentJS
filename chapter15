@@ -1,0 +1,27 @@
+<p>🎈</p>
+
+<script>
+  const balloon = document.getElementsByTagName('p')[0];
+  const minSize = 20;
+  const maxSize = 200;
+  balloon.style.fontSize = `${minSize}px`;
+  
+  function increaseDecreaseBalloonSize(event){
+    const actualSize = Number(balloon.style.fontSize.match(/\d+/)[0]); 
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+    if (event.key === 'ArrowDown' && actualSize > minSize) balloon.style.fontSize = `${(actualSize-10)}px`;
+    if (event.key === 'ArrowUp') {
+            
+      if (actualSize < maxSize) balloon.style.fontSize = `${(actualSize+10)}px`;
+      if (actualSize === maxSize) {
+        balloon.textContent = "💥";
+        document.body.removeEventListener("keydown", increaseDecreaseBalloonSize);
+    }
+    }    
+  }
+
+  }
+  document.body.addEventListener("keydown", increaseDecreaseBalloonSize);
+  
+</script>
